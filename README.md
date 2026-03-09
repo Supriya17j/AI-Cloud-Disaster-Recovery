@@ -38,3 +38,8 @@
 2. Vaishnavi S V – Developer
 3. Abhishek A S – AI Model
 4. Faisal Iqbal – Cloud System
+
+## Project Guide
+DR. N. SREENIVASA
+Department of Computer Science / Information Technology
+Nitte Meenakshi Institute of Technology
