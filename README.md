@@ -1,24 +1,40 @@
 # AI-Cloud-Disaster-Recovery
 
 ## Project Title
-AI-Based Predictive Backup and Recovery System for Cloud Disaster Management
+
+ Cloud based Disaster  Recovery Management System 
 
 ## Description
-This project focuses on developing an AI-based predictive system for cloud disaster management. The system continuously monitors cloud infrastructure, analyzes system logs, and predicts potential cyberattacks, system failures, or disasters using machine learning techniques. 
 
-Based on the predictions, the system automatically performs data backup and activates recovery mechanisms to ensure data protection, service continuity, and minimal downtime in cloud environments.
+* This project uses **Artificial Intelligence** to monitor cloud systems.
+* It helps **predict cyberattacks or system failures**.
+* The system automatically **backs up important data**.
+* It also **recovers data quickly** during disasters.
+
+## Objectives
+
+* Monitor cloud infrastructure
+* Detect possible cyber threats
+* Predict system failures using Machine Learning
+* Perform automatic backup and recovery
 
 ## Technologies Used
-- Python
-- Machine Learning
-- Cloud Storage
-- Data Monitoring
 
-## Project Components
-- Cloud Monitoring Module
-- AI Prediction Model
-- Backup and Storage System
-- Disaster Recovery / Failover Mechanism
+* Python
+* Machine Learning
+* Cloud Storage
+* Data Monitoring
 
-## Objective
-To build an intelligent cloud disaster recovery prototype that can predict failures and automatically recover data to maintain system availability.
+## Project Structure
+
+* `dataset/` – Sample data
+* `model/` – Machine learning model
+* `monitoring_scripts/` – Monitoring code
+* `backup_system/` – Backup and recovery code
+
+## Team Members
+
+1. Supriya S Joshi – Team Leader
+2. Vaishnavi S V – Developer
+3. Abhishek A S – AI Model
+4. Faisal Iqbal – Cloud System
