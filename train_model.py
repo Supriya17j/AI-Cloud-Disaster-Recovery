@@ -20,8 +20,9 @@ def train():
     # Train Isolation Forest
     print("\nTraining Isolation Forest...")
     model = IsolationForest(
-        n_estimators=100,
-        contamination=0.1,   # expects ~10% anomalies
+        n_estimators=200,
+        contamination=0.15,   # 200 attacks out of 1200 = ~15%
+        max_samples='auto',
         random_state=42
     )
     model.fit(X)

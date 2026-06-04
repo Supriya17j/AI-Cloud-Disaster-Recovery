@@ -60,6 +60,9 @@ def check_weather(branch):
 
 # ─── Cyber Attack Check ───────────────────────────────────
 def check_cyber(attempts, time_gap_seconds):
+    # Rule-based filter — less than 5 attempts can never be an attack
+    if attempts < 5:
+        return False
     features = pd.DataFrame([[attempts, time_gap_seconds]],
                             columns=["attempts", "time_gap_seconds"])
     prediction = model.predict(features)[0]
@@ -119,8 +122,13 @@ def run_engine():
 
         # 3. Cyber check (simulate a login event)
         import random
-        attempts = random.choice([1, 1, 1, 10, 15])  # mostly normal
-        time_gap = random.choice([1800, 2400, 3600, 5, 3])
+        scenario = random.choice(["normal", "normal", "normal", "attack"])
+        if scenario == "normal":
+            attempts = random.randint(1, 3)
+            time_gap = random.randint(600, 7200)
+        else:
+            attempts = random.randint(8, 20)
+            time_gap = random.randint(1, 15)
         is_attack = check_cyber(attempts, time_gap)
         if is_attack:
             msg = f"Cyber attack detected — {attempts} attempts in {time_gap}s"
