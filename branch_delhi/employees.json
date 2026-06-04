@@ -1,0 +1,142 @@
+[
+  {
+    "id": "420445ee-43f1-47d2-b002-30220f909020",
+    "name": "Ayaan Bhattacharyya",
+    "email": "kjhaveri@example.net",
+    "department": "Security",
+    "branch": "delhi"
+  },
+  {
+    "id": "9343a2f0-d65a-47bc-8a8c-5a8fc0d57409",
+    "name": "Shivansh Singhal",
+    "email": "aahana46@example.org",
+    "department": "HR",
+    "branch": "delhi"
+  },
+  {
+    "id": "a2871555-e695-42df-9e3e-011ec7831d68",
+    "name": "Ekiya Edwin",
+    "email": "gayathrisehgal@example.org",
+    "department": "HR",
+    "branch": "delhi"
+  },
+  {
+    "id": "b2509539-4150-417f-8cbb-9597d996fc08",
+    "name": "Sachi Anne",
+    "email": "eganesan@example.org",
+    "department": "IT",
+    "branch": "delhi"
+  },
+  {
+    "id": "b5ba6fd5-9856-413e-927c-6774a6110ee1",
+    "name": "Balvan Lal",
+    "email": "chatura41@example.com",
+    "department": "Operations",
+    "branch": "delhi"
+  },
+  {
+    "id": "38fd379d-1289-4cf5-9a8f-d9d599c135b3",
+    "name": "Wazir Bobal",
+    "email": "gunbir74@example.net",
+    "department": "HR",
+    "branch": "delhi"
+  },
+  {
+    "id": "4ab43026-21e0-4124-b8c3-470bf8a7d949",
+    "name": "Bhavani Khurana",
+    "email": "dparekh@example.org",
+    "department": "Security",
+    "branch": "delhi"
+  },
+  {
+    "id": "2f5c2c01-2fb4-4d1c-a6c3-817c392efbfe",
+    "name": "Udant Muni",
+    "email": "kaulyadavi@example.org",
+    "department": "IT",
+    "branch": "delhi"
+  },
+  {
+    "id": "0f23b88f-feb4-4cb9-9f68-bfd311597686",
+    "name": "Amara Varty",
+    "email": "wasonurvi@example.net",
+    "department": "IT",
+    "branch": "delhi"
+  },
+  {
+    "id": "68cd81dc-4afe-4b86-9b3b-797e91087c38",
+    "name": "Hritik Majumdar",
+    "email": "adya37@example.org",
+    "department": "Finance",
+    "branch": "delhi"
+  },
+  {
+    "id": "47d27973-422f-4558-8685-44d225e4f552",
+    "name": "Ishita Som",
+    "email": "vrindaparikh@example.com",
+    "department": "Security",
+    "branch": "delhi"
+  },
+  {
+    "id": "5a6200b7-6128-4e8b-95e5-eb39c2034261",
+    "name": "Yahvi Sant",
+    "email": "samar14@example.org",
+    "department": "Operations",
+    "branch": "delhi"
+  },
+  {
+    "id": "f2282efe-6cd2-4688-bbd5-27aa926139a5",
+    "name": "Akshay Kade",
+    "email": "bhavinigupta@example.com",
+    "department": "Finance",
+    "branch": "delhi"
+  },
+  {
+    "id": "80f9548b-b7a2-46ab-9d76-5b8b9eaf0662",
+    "name": "Yutika Nanda",
+    "email": "qnagarajan@example.com",
+    "department": "Finance",
+    "branch": "delhi"
+  },
+  {
+    "id": "48212d3b-18a4-4e51-8828-fd26d118b7a8",
+    "name": "David Bir",
+    "email": "ysankar@example.net",
+    "department": "Security",
+    "branch": "delhi"
+  },
+  {
+    "id": "97e5600c-1218-45f0-8a25-364b1479916c",
+    "name": "Samaksh Bhasin",
+    "email": "ijayapandit@example.org",
+    "department": "IT",
+    "branch": "delhi"
+  },
+  {
+    "id": "0c2113d8-4418-4117-8468-f92fb8fd1954",
+    "name": "Eesha Subramanian",
+    "email": "aggarwalwidisha@example.org",
+    "department": "IT",
+    "branch": "delhi"
+  },
+  {
+    "id": "9672ee30-bb7a-4f6a-9134-af550a697dde",
+    "name": "Vidhi Edwin",
+    "email": "chandreshravi@example.org",
+    "department": "IT",
+    "branch": "delhi"
+  },
+  {
+    "id": "eb92ef06-0ff2-4eb1-8ec8-b5fa233d7071",
+    "name": "Ekapad Parikh",
+    "email": "gaurika74@example.net",
+    "department": "Operations",
+    "branch": "delhi"
+  },
+  {
+    "id": "b4d99b1a-34fc-4f96-9781-d8ff611feb15",
+    "name": "Lila Sridhar",
+    "email": "vyanjana69@example.com",
+    "department": "HR",
+    "branch": "delhi"
+  }
+]

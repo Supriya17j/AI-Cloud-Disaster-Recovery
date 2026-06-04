@@ -1,0 +1,142 @@
+[
+  {
+    "id": "72f28873-2d11-4f9e-b5da-ca2d34a2d808",
+    "name": "Rohan Doctor",
+    "email": "zehaanluthra@example.org",
+    "department": "HR",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "90dd3133-d5cb-43ab-ba4d-f7a82ca5ec8f",
+    "name": "Elijah Ramesh",
+    "email": "pkaran@example.net",
+    "department": "IT",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "48fe0115-3950-46db-bd91-0e858a9f78ad",
+    "name": "Charles Parikh",
+    "email": "abdul28@example.net",
+    "department": "IT",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "d7582e6d-8728-464f-9920-d7c17214886e",
+    "name": "Eshana Kota",
+    "email": "masonchar@example.org",
+    "department": "HR",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "172cac6e-842b-43c3-aab4-4e50c8c31b87",
+    "name": "Aarav Bandi",
+    "email": "kadeadya@example.com",
+    "department": "Finance",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "4cfa894b-8d6b-47b4-bba5-c876537b1662",
+    "name": "Rachita Rege",
+    "email": "zaidchaudhary@example.net",
+    "department": "Operations",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "e630ed98-6b64-4c61-b8b8-344d81f82f4e",
+    "name": "Brijesh Bal",
+    "email": "mrege@example.net",
+    "department": "Finance",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "6c618612-3a5b-4555-9617-a4f544dc6dbe",
+    "name": "Wakeeta Gokhale",
+    "email": "qmody@example.com",
+    "department": "Operations",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "f8020ceb-9932-4d04-8960-ec5fa030ead6",
+    "name": "Xavier Sen",
+    "email": "yahvimagar@example.net",
+    "department": "Finance",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "52dd4425-de47-4dda-86d2-110e20f7ff2e",
+    "name": "Ethan Chaudhary",
+    "email": "vloke@example.net",
+    "department": "IT",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "8c6c8720-06f0-4df9-8e9d-5cedc02bbdfc",
+    "name": "Idika Sane",
+    "email": "nnarang@example.net",
+    "department": "Finance",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "a0f97824-55c9-4db7-94c9-3e11769873b4",
+    "name": "Balveer Bora",
+    "email": "utkarsh85@example.org",
+    "department": "HR",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "6a0fcef2-883b-4e15-84d5-b9f5405a86a5",
+    "name": "Madhav Bakshi",
+    "email": "ehora@example.org",
+    "department": "Security",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "44e22318-71d2-4fbd-a8c8-b5500aad7e62",
+    "name": "Udant Shanker",
+    "email": "gagansheth@example.net",
+    "department": "IT",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "975527de-13b2-4b79-a65f-b646cf74f003",
+    "name": "Darpan Solanki",
+    "email": "prabhakaraarini@example.com",
+    "department": "IT",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "81e8ff77-acb6-4f0e-9255-6372a44c1c4a",
+    "name": "Frederick Bhardwaj",
+    "email": "poojayogi@example.com",
+    "department": "Finance",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "22528c19-6af0-46e1-b396-f6b418a2e190",
+    "name": "Harsh Toor",
+    "email": "hardik16@example.com",
+    "department": "Operations",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "fa3f67b5-cc55-4014-b86e-32244e5fb5a1",
+    "name": "Vaishnavi Bera",
+    "email": "dsood@example.org",
+    "department": "Security",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "79fc5701-c43c-4f10-880d-5bf25cb0addb",
+    "name": "Teerth Agarwal",
+    "email": "maniagastya@example.org",
+    "department": "IT",
+    "branch": "hyderabad"
+  },
+  {
+    "id": "8c1722eb-6c7e-4b15-b912-33571ba6b859",
+    "name": "Ranbir Ben",
+    "email": "oram@example.com",
+    "department": "HR",
+    "branch": "hyderabad"
+  }
+]

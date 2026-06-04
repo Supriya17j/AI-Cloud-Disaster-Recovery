@@ -1,0 +1,142 @@
+[
+  {
+    "id": "13d7fdaf-e695-4277-a22b-7e56aa75cbfa",
+    "name": "Hemani Rama",
+    "email": "dakshbose@example.com",
+    "department": "Finance",
+    "branch": "chennai"
+  },
+  {
+    "id": "873ea96e-3199-4d99-a98b-530c2b5b632f",
+    "name": "Waida Vohra",
+    "email": "hemang88@example.net",
+    "department": "Operations",
+    "branch": "chennai"
+  },
+  {
+    "id": "2b80a39f-55da-4cc5-b45a-b8cd3545a25e",
+    "name": "Nicholas Garde",
+    "email": "shivanisarin@example.org",
+    "department": "HR",
+    "branch": "chennai"
+  },
+  {
+    "id": "97683124-10a5-4226-8f08-57593d833141",
+    "name": "Ijaya Sarma",
+    "email": "gautamisaran@example.org",
+    "department": "Finance",
+    "branch": "chennai"
+  },
+  {
+    "id": "410db357-b984-4f20-9585-5e58480efe96",
+    "name": "Brinda Gour",
+    "email": "manthan11@example.com",
+    "department": "IT",
+    "branch": "chennai"
+  },
+  {
+    "id": "a7ed1b63-7b5f-4cb8-8455-5df858adb173",
+    "name": "Gaurika Comar",
+    "email": "amaranayak@example.net",
+    "department": "Security",
+    "branch": "chennai"
+  },
+  {
+    "id": "707a69ec-765b-43f0-9201-f1c9fb77996d",
+    "name": "Lekha Rattan",
+    "email": "choudharymaanav@example.com",
+    "department": "IT",
+    "branch": "chennai"
+  },
+  {
+    "id": "d9709c3b-cb73-4216-9f0a-04f16fc0daea",
+    "name": "Lucky Rout",
+    "email": "obhavsar@example.org",
+    "department": "Finance",
+    "branch": "chennai"
+  },
+  {
+    "id": "ea5f1dfb-91aa-495f-9f0c-dc0cff798b55",
+    "name": "Nachiket Chaudhuri",
+    "email": "gagan19@example.net",
+    "department": "IT",
+    "branch": "chennai"
+  },
+  {
+    "id": "eade2c41-4852-4d4a-bbb1-e214cab87da6",
+    "name": "Saumya Pandit",
+    "email": "kaurrushil@example.com",
+    "department": "Operations",
+    "branch": "chennai"
+  },
+  {
+    "id": "221f9002-6505-4cee-9a38-f4fe3bf91af9",
+    "name": "Ira Virk",
+    "email": "sai52@example.net",
+    "department": "Security",
+    "branch": "chennai"
+  },
+  {
+    "id": "ce7781c6-3910-4a18-b12e-46d07ba7d460",
+    "name": "Ijaya Sahni",
+    "email": "brarsudiksha@example.com",
+    "department": "Security",
+    "branch": "chennai"
+  },
+  {
+    "id": "2d5dfac3-f4cb-4fbd-9503-bf10e95dffee",
+    "name": "Jalsa Bahri",
+    "email": "mangaturmi@example.net",
+    "department": "Security",
+    "branch": "chennai"
+  },
+  {
+    "id": "522311e9-beb8-43b4-9a32-dd8ee4c9878c",
+    "name": "Atharv Sengupta",
+    "email": "leela74@example.com",
+    "department": "Finance",
+    "branch": "chennai"
+  },
+  {
+    "id": "1e259a87-1f4e-4f54-b979-a0cde8175675",
+    "name": "Girindra Banerjee",
+    "email": "vbhatia@example.com",
+    "department": "Operations",
+    "branch": "chennai"
+  },
+  {
+    "id": "44b2d389-7d91-4183-b0c4-fb3b9fa12568",
+    "name": "Karan Amble",
+    "email": "ubera@example.com",
+    "department": "IT",
+    "branch": "chennai"
+  },
+  {
+    "id": "1b867b19-c1a7-4a2b-afe0-7be71629b7b9",
+    "name": "Jeevika Ramachandran",
+    "email": "ubalay@example.com",
+    "department": "IT",
+    "branch": "chennai"
+  },
+  {
+    "id": "a1bdcea1-c39a-49f2-bba3-5e0cfae0cd53",
+    "name": "Wahab Virk",
+    "email": "tkurian@example.com",
+    "department": "HR",
+    "branch": "chennai"
+  },
+  {
+    "id": "0e6ee6f4-214d-46b2-bcc7-981f528759cd",
+    "name": "Neelima Bahl",
+    "email": "jairaj07@example.org",
+    "department": "Security",
+    "branch": "chennai"
+  },
+  {
+    "id": "33d44d32-c523-465d-a3a8-4414710a0fa2",
+    "name": "Tanish Tripathi",
+    "email": "chaturathakkar@example.com",
+    "department": "Finance",
+    "branch": "chennai"
+  }
+]
