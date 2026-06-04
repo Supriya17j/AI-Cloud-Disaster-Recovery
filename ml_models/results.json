@@ -1,0 +1,7 @@
+{
+  "model": "Isolation Forest",
+  "total_records": 600,
+  "normal_records": 500,
+  "attack_records": 100,
+  "accuracy": 91.5
+}
