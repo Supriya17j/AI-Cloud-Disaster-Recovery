@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud DR — Ops Centre</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+
+<div class="hdr">
+    <div class="hdr-l">
+        <div class="dot"></div>
+        <div>
+            <div class="hdr-title">CLOUD DISASTER RECOVERY — OPS CENTRE</div>
+            <div class="hdr-sub">ISOLATION FOREST ML · 5 BRANCH NODES · AWS S3 · LIVE</div>
+        </div>
+    </div>
+    <div class="hdr-r">
+        <div class="live"><div class="blink"></div>MONITORING</div>
+        <div class="clock" id="clk">--:--:--</div>
+    </div>
+</div>
+
+<div class="body">
+    <div class="statrow">
+        <div class="stat">
+            <div class="stat-l">Total nodes</div>
+            <div class="stat-v v-blue">5</div>
+            <div class="stat-s">India region</div>
+        </div>
+        <div class="stat">
+            <div class="stat-l">Healthy</div>
+            <div class="stat-v v-teal" id="sg">—</div>
+            <div class="stat-s">No alerts</div>
+        </div>
+        <div class="stat">
+            <div class="stat-l">Warning</div>
+            <div class="stat-v v-amber" id="sy">—</div>
+            <div class="stat-s">Monitoring</div>
+        </div>
+        <div class="stat">
+            <div class="stat-l">Critical</div>
+            <div class="stat-v v-red" id="sr">—</div>
+            <div class="stat-s">Backup triggered</div>
+        </div>
+    </div>
+
+    <div class="sec">Branch node status</div>
+    <div class="grid" id="cards"></div>
+
+    <div class="sec">System health</div>
+    <div class="chart-wrap"><canvas id="hc" height="90"></canvas></div>
+
+    <div class="sec">S3 backup history</div>
+    <div class="bsec">
+        <select id="bs">
+            <option value="mumbai">Mumbai</option>
+            <option value="delhi">Delhi</option>
+            <option value="bangalore">Bangalore</option>
+            <option value="chennai">Chennai</option>
+            <option value="hyderabad">Hyderabad</option>
+        </select>
+        <button class="btn" onclick="loadBH()">Load history ›</button>
+    </div>
+    <div id="bh"></div>
+</div>
+
+<script>
+let hc = null;
+const loc = {
+    MUMBAI: 'Maharashtra · IN',
+    DELHI: 'Delhi NCR · IN',
+    BANGALORE: 'Karnataka · IN',
+    CHENNAI: 'Tamil Nadu · IN',
+    HYDERABAD: 'Telangana · IN'
+};
+
+function tick() {
+    document.getElementById('clk').textContent =
+        new Date().toLocaleTimeString('en-IN', { hour12: false });
+}
+setInterval(tick, 1000);
+tick();
+
+function barClass(v, w, c) {
+    return v >= c ? 'bf-c' : v >= w ? 'bf-w' : 'bf-s';
+}
+
+async function fetchStatus() {
+    try {
+        const d = await (await fetch('/api/status')).json();
+        document.getElementById('sg').textContent = d.filter(b => b.status === 'GREEN').length;
+        document.getElementById('sy').textContent = d.filter(b => b.status === 'YELLOW').length;
+        document.getElementById('sr').textContent = d.filter(b => b.status === 'RED').length;
+
+        const g = document.getElementById('cards');
+        g.innerHTML = '';
+
+        d.forEach(b => {
+            const cls = b.status === 'GREEN' ? 'g' : b.status === 'YELLOW' ? 'y' : 'r';
+            const bc = b.status === 'GREEN' ? 'bg' : b.status === 'YELLOW' ? 'by' : 'br';
+
+            const al = b.alerts.length > 0
+                ? b.alerts.map(a => `<li class="warn">${a}</li>`).join('')
+                : '<li class="ok">All systems nominal</li>';
+
+            const wx = b.weather && Object.keys(b.weather).length > 0 ? `
+                <div class="weather-row">
+                    <span class="wx-item">🌡 ${b.weather.temp}°C</span>
+                    <span class="wx-item">💧 ${b.weather.humidity}%</span>
+                    <span class="wx-item">💨 ${b.weather.wind} m/s</span>
+                </div>
+                <div class="wx-condition">${b.weather.condition}</div>` : '';
+
+            g.innerHTML += `
+            <div class="card ${cls}">
+                <div class="ch">
+                    <div>
+                        <div class="cn">${b.branch}</div>
+                        <div class="cl">${loc[b.branch] || ''}</div>
+                    </div>
+                    <span class="badge ${bc}">${b.status}</span>
+                </div>
+                <div class="mtr">
+                    <div class="mr">
+                        <span class="mk">CPU</span>
+                        <div class="bt"><div class="bf ${barClass(b.cpu, 70, 85)}" style="width:${b.cpu}%"></div></div>
+                        <span class="mv">${b.cpu}%</span>
+                    </div>
+                    <div class="mr">
+                        <span class="mk">RAM</span>
+                        <div class="bt"><div class="bf ${barClass(b.ram, 70, 85)}" style="width:${b.ram}%"></div></div>
+                        <span class="mv">${b.ram}%</span>
+                    </div>
+                    <div class="mr">
+                        <span class="mk">DSK</span>
+                        <div class="bt"><div class="bf ${barClass(b.disk, 75, 90)}" style="width:${b.disk}%"></div></div>
+                        <span class="mv">${b.disk}%</span>
+                    </div>
+                </div>
+                ${wx}
+                <ul class="al">${al}</ul>
+            </div>`;
+        });
+
+        renderChart(d);
+    } catch(e) { console.error(e); }
+}
+
+function renderChart(d) {
+    if (hc) hc.destroy();
+    const ctx = document.getElementById('hc').getContext('2d');
+    hc = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: d.map(b => b.branch),
+            datasets: [
+                { label: 'CPU %', data: d.map(b => b.cpu), backgroundColor: 'rgba(61,165,255,0.5)', borderColor: '#3da5ff', borderWidth: 1, borderRadius: 3 },
+                { label: 'RAM %', data: d.map(b => b.ram), backgroundColor: 'rgba(0,229,160,0.4)', borderColor: '#00e5a0', borderWidth: 1, borderRadius: 3 },
+                { label: 'Disk %', data: d.map(b => b.disk), backgroundColor: 'rgba(255,184,0,0.4)', borderColor: '#ffb800', borderWidth: 1, borderRadius: 3 }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { labels: { color: '#3d6080', font: { family: 'JetBrains Mono', size: 10 } } } },
+            scales: {
+                y: { beginAtZero: true, max: 100, grid: { color: '#1a2d47' }, ticks: { color: '#3d6080', font: { family: 'JetBrains Mono', size: 9 }, callback: v => v + '%' } },
+                x: { grid: { color: '#1a2d47' }, ticks: { color: '#7aa8cc', font: { family: 'JetBrains Mono', size: 10 } } }
+            }
+        }
+    });
+}
+
+async function loadBH() {
+    const br = document.getElementById('bs').value;
+    const d = await (await fetch(`/api/backup-history/${br}`)).json();
+    const c = document.getElementById('bh');
+    if (!d.length) {
+        c.innerHTML = '<p class="no-data">No backup records found.</p>';
+        return;
+    }
+    c.innerHTML = `
+    <table class="tbl">
+        <thead><tr><th>S3 object key</th><th>Size</th><th>Last modified</th><th>Action</th></tr></thead>
+        <tbody>${d.map(i => `<tr>
+            <td>${i.file}</td>
+            <td>${(i.size / 1024).toFixed(2)} KB</td>
+            <td>${i.last_modified}</td>
+            <td><a class="dl-btn" href="/api/download/${document.getElementById('bs').value}/${encodeURIComponent(i.file)}" download>↓ Download</a></td>
+        </tr>`).join('')}</tbody>
+    </table>`;
+}
+
+fetchStatus();
+setInterval(fetchStatus, 30000);
+</script>
+</body>
+</html>
