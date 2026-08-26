@@ -5,6 +5,8 @@ import requests
 import os
 from datetime import datetime
 from dotenv import load_dotenv
+from backup import upload_to_s3
+from alert import send_alert
 
 load_dotenv()
 
@@ -87,12 +89,13 @@ def check_system(branch):
 # ─── Backup Trigger (Member 2 will connect here) ──────────
 def trigger_backup(branch, reason):
     print(f"   🔄 Backup triggered for {branch} — Reason: {reason}")
+    upload_to_s3(branch)
     # Member 2's backup.py will be called here
     # Example: backup.upload_to_s3(branch)
 
 # ─── Email Alert Trigger (Member 2 will connect here) ─────
 def trigger_email(branch, alerts):
-    print(f"   📧 Email alert queued for {branch}")
+    send_alert(branch, alerts)
     # Member 2's alert.py will be called here
     # Example: alert.send_email(branch, alerts)
 
