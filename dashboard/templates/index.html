@@ -49,6 +49,18 @@
         </div>
     </div>
 
+    <div class="demo-bar">
+        <div class="demo-info">
+            <div class="demo-title">LIVE DEMO MODE</div>
+            <div class="demo-sub">Triggers a full disaster on Bangalore — cyber attack + system failure + weather alert → auto backup to S3 + email alert</div>
+        </div>
+        <button class="demo-btn" id="demoBtn" onclick="triggerDemo()">
+            <span id="demoBtnText">⚡ TRIGGER DISASTER DEMO</span>
+        </button>
+    </div>
+
+    <div id="demo-result" class="demo-result" style="display:none"></div>
+
     <div class="sec">Branch node status</div>
     <div class="grid" id="cards"></div>
 
@@ -88,6 +100,68 @@ tick();
 
 function barClass(v, w, c) {
     return v >= c ? 'bf-c' : v >= w ? 'bf-w' : 'bf-s';
+}
+
+async function triggerDemo() {
+    const btn = document.getElementById('demoBtn');
+    const btnText = document.getElementById('demoBtnText');
+    const result = document.getElementById('demo-result');
+
+    // Disable button and show loading
+    btn.disabled = true;
+    btnText.textContent = '⏳ TRIGGERING DISASTER...';
+    btn.classList.add('demo-btn-loading');
+    result.style.display = 'none';
+
+    try {
+        const res = await fetch('/api/trigger-demo', { method: 'POST' });
+        const d = await res.json();
+
+        // Show result
+        result.style.display = 'block';
+        result.innerHTML = `
+            <div class="demo-result-header">
+                <span class="demo-result-title">🚨 DISASTER TRIGGERED — ${d.branch}</span>
+                <span class="demo-result-time">${new Date().toLocaleTimeString()}</span>
+            </div>
+            <div class="demo-result-grid">
+                <div class="demo-stat">
+                    <div class="demo-stat-l">Backup</div>
+                    <div class="demo-stat-v ${d.backup === 'Success' ? 'v-teal' : 'v-red'}">${d.backup}</div>
+                </div>
+                <div class="demo-stat">
+                    <div class="demo-stat-l">Email</div>
+                    <div class="demo-stat-v ${d.email === 'Sent' ? 'v-teal' : 'v-red'}">${d.email}</div>
+                </div>
+                <div class="demo-stat">
+                    <div class="demo-stat-l">Branch</div>
+                    <div class="demo-stat-v v-red">${d.branch}</div>
+                </div>
+                <div class="demo-stat">
+                    <div class="demo-stat-l">Alerts</div>
+                    <div class="demo-stat-v v-amber">${d.alerts.length}</div>
+                </div>
+            </div>
+            <div class="demo-alerts">
+                ${d.alerts.map(a => `<div class="demo-alert-item">● ${a}</div>`).join('')}
+            </div>
+            <div class="demo-msg">✓ Check your Gmail inbox — disaster alert email has been sent</div>
+        `;
+
+        // Refresh dashboard cards to show RED status
+        fetchStatus();
+
+    } catch(e) {
+        result.style.display = 'block';
+        result.innerHTML = '<div class="demo-msg" style="color:#ff4466">✗ Demo trigger failed — check terminal</div>';
+    }
+
+    // Re-enable button
+    setTimeout(() => {
+        btn.disabled = false;
+        btnText.textContent = 'TRIGGER DISASTER DEMO';
+        btn.classList.remove('demo-btn-loading');
+    }, 3000);
 }
 
 async function fetchStatus() {

@@ -33,7 +33,7 @@ def get_backup_history(branch):
             backups.append({
                 "file": obj['Key'],
                 "size": obj['Size'],
-                "last_modified": obj['LastModified'].strftime('%Y-%m-%d %H:%M:%S')
+                "last_modified": (obj['LastModified'] + __import__('datetime').timedelta(hours=5, minutes=30)).strftime('%Y-%m-%d %H:%M:%S IST')
             })
         return backups
     except Exception as e:
@@ -126,6 +126,39 @@ def download_file(branch, s3_key):
     except Exception as e:
         print(f"Download error: {e}")
         return jsonify({"error": str(e)}), 500
-    
+
+@app.route('/api/trigger-demo', methods=['POST'])
+def trigger_demo():
+    import random
+    from alert import send_alert
+    from backup import upload_to_s3
+
+    branch = "bangalore"  # Demo always triggers on Bangalore
+
+    alerts = [
+        "[CYBER] Cyber attack detected — 15 attempts in 3s from public IP",
+        "[SYSTEM] High CPU: 94.5%",
+        "[SYSTEM] High RAM: 91.2%",
+        "[WEATHER] High temperature: 43.2°C"
+    ]
+
+    print(f"\n{'='*50}")
+    print(f"DEMO TRIGGERED — Simulating disaster on {branch.upper()}")
+    print(f"{'='*50}")
+
+    # Trigger backup
+    backup_success = upload_to_s3(branch)
+
+    # Trigger email
+    email_success = send_alert(branch, alerts)
+
+    return jsonify({
+        "branch": branch.upper(),
+        "alerts": alerts,
+        "backup": "Success" if backup_success else "Failed",
+        "email": "Sent" if email_success else "Failed",
+        "message": f"Demo disaster triggered on {branch.upper()} — backup and email completed"
+    })
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
