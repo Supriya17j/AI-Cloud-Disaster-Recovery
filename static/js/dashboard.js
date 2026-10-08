@@ -189,7 +189,14 @@ function renderCommon(state) {
   setText('[data-field="rto_target"]', state.targets?.rto_s != null ? `${state.targets.rto_s}s` : "-");
   setText('[data-field="rpo_target"]', state.targets?.rpo_min != null ? `${state.targets.rpo_min} min` : "-");
 
-  renderGate(state.gate);
+  const robustGate = state.robust_decision;
+  renderGate(robustGate ? {
+    ...state.gate,
+    decision: robustGate.decision,
+    recommended: robustGate.selected_recovery_point,
+    readiness: robustGate.safety_score,
+    reasons: [robustGate.reason]
+  } : state.gate);
 }
 
 function renderLists(state) {
@@ -256,12 +263,13 @@ function renderRecoveryResults(state) {
 
   const gate = state.gate || {};
   const authoritative = state.decision || {};
+  const robust = state.robust_decision || {};
   const selected = state.selected_assessment || {};
   const backup = state.selected_backup || {};
   const details = selected.details || [];
   const latestRecovery = state.recoveries?.[0] || {};
   const score = Number(authoritative.safety_score ?? gate.readiness ?? selected.readiness ?? 0) || 0;
-  const decision = authoritative.gate_decision || gate.decision || "NO SAFE RECOVERY POINT";
+  const decision = robust.decision || authoritative.gate_decision || gate.decision || "NO SAFE RECOVERY POINT";
   const disasters = state.active_disasters || [];
 
   setText("#result_status_title", decision);
@@ -270,9 +278,10 @@ function renderRecoveryResults(state) {
   setText('[data-result="disaster_type"]', disasters.length ? disasters.map((item) => item.type).join(", ") : state.cards["Disaster Status"]);
   setText('[data-result="assessment_id"]', selected.id ? `ASM-${selected.id}` : "-");
   setText('[data-result="score_classification"]', selected.classification || decision);
-  setText('[data-result="selected_backup_id"]', authoritative.selected_recovery_point || "-");
-  setText('[data-result="selected_backup_ts"]', authoritative.selected_recovery_point ? (backup.created_at || selected.ts || "-") : "-");
-  setText('[data-result="selected_suspicious"]', authoritative.selected_recovery_point ? "Review assessment evidence" : "No point selected");
+  const selectedPoint = robust.selected_recovery_point || authoritative.selected_recovery_point;
+  setText('[data-result="selected_backup_id"]', selectedPoint || "-");
+  setText('[data-result="selected_backup_ts"]', selectedPoint ? (backup.created_at || selected.ts || "-") : "-");
+  setText('[data-result="selected_suspicious"]', selectedPoint ? "Review assessment evidence" : "No point selected");
   setText('[data-result="selected_rpo"]', latestRecovery.rpo_min != null ? `${latestRecovery.rpo_min} min` : "-");
 
   const statusBadge = document.querySelector(".status-badge-large");

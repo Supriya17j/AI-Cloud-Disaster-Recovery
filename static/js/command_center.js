@@ -94,6 +94,17 @@ function renderDashboard(data) {
   dashText("dash_safety_score", agents.safety_score == null ? "-" : `${agents.safety_score}/100`);
   dashText("dash_safety_label", agents.safety_label);
   dashText("dash_formula", agents.formula);
+  const robust = data.robust_decision || {};
+  dashText("robust_decision_label", robust.decision || "Waiting for decision");
+  dashText("robust_authority", robust.authority || "-");
+  dashText("robust_confidence", robust.confidence == null ? "-" : `${robust.confidence}%`);
+  dashText("robust_readiness", robust.recovery_readiness?.score == null ? "-" : `${robust.recovery_readiness.score}/100`);
+  dashText("robust_agent", robust.selected_recovery_agent || "None");
+  dashText("robust_point", robust.selected_recovery_point || "None");
+  dashText("robust_id", robust.decision_id || "-");
+  dashText("robust_reason", robust.reason || "No robust decision generated.");
+  const trustList = document.getElementById("robust_agents");
+  if (trustList) trustList.innerHTML = Object.entries(robust.agent_trust || {}).map(([name, item]) => `<div><span>${dashEsc(name)}</span><strong>${dashEsc(item.score)} ${dashEsc(item.state)}</strong><small>${dashEsc(item.authority)}</small></div>`).join("");
   renderAgents(agents);
   renderPipeline(agents.pipeline);
   renderTable("trust_points_table", agents.recovery_points || [], [

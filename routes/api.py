@@ -3,7 +3,7 @@ import json, logging, os, tempfile
 from flask import Blueprint, jsonify, request
 from config.settings import DEMO_MODE, RTO_TARGET_S, RPO_TARGET_MIN
 from modules.db import q, audit
-from modules import monitor, risk, backup, disaster, readiness, recovery, seed, live_monitor, agent_workflow
+from modules import monitor, risk, backup, disaster, readiness, recovery, seed, live_monitor, agent_workflow, robust_decision
 from modules import demo_attack
 bp = Blueprint("api", __name__, url_prefix="/api")
 log = logging.getLogger(__name__)
@@ -16,14 +16,31 @@ def recovery_live():
 
 @bp.get("/dashboard/live")
 def dashboard_live():
-    live = live_monitor.collect()
-    agents = agent_workflow.evaluate(live)
-    return jsonify(ok=True, live=live, agents=agents, decision=agent_workflow.authoritative_decision(agents), demo_mode=DEMO_MODE)
+    live, agents, decision, robust = _robust_contract()
+    return jsonify(ok=True, live=live, agents=agents, decision=decision, robust_decision=robust, demo_mode=DEMO_MODE)
 
 def _live_contract():
     live = live_monitor.collect()
     agents = agent_workflow.evaluate(live)
     return live, agents, agent_workflow.authoritative_decision(agents)
+
+def _robust_contract():
+    live = live_monitor.collect()
+    agents = agent_workflow.evaluate(live)
+    trust = robust_decision.assess_agent_trust(live, agents["activities"])
+    readiness_state = robust_decision.assess_readiness(agents["gate"], live)
+    robust = robust_decision.decide(live, agents["gate"], trust, readiness_state, agents["recovery_points"])
+    robust_decision.persist(robust)
+    agents["agent_trust"] = trust
+    agents["recovery_readiness"] = readiness_state
+    decision = agent_workflow.authoritative_decision(agents)
+    decision.update({"decision": robust["decision"], "selected_recovery_point": robust["selected_recovery_point"], "safety_score": agents["safety_score"], "gate_decision": robust["decision"], "reason": robust["reason"]})
+    return live, agents, decision, robust
+
+@bp.get("/recovery-decision")
+def recovery_decision():
+    _, _, _, robust = _robust_contract()
+    return jsonify(ok=True, **robust)
 
 @bp.get("/telemetry")
 def telemetry():
@@ -32,12 +49,12 @@ def telemetry():
 
 @bp.get("/ai-detection")
 def ai_detection_status():
-    live, agents, decision = _live_contract()
-    return jsonify(ok=True, anomaly=live.get("anomaly", {}), cyber=live.get("cyber", {}), live=live, agent=next((item for item in agents["activities"] if item["agent_name"] == "Threat Detection Agent"), {}), decision=decision)
+    live, agents, decision, robust = _robust_contract()
+    return jsonify(ok=True, anomaly=live.get("anomaly", {}), cyber=live.get("cyber", {}), live=live, agent=next((item for item in agents["activities"] if item["agent_name"] == "Threat Detection Agent"), {}), decision=decision, robust_decision=robust)
 
 @bp.get("/risk-status")
 def risk_status():
-    live, agents, decision = _live_contract()
+    live, agents, decision, robust = _robust_contract()
     risk_factors = live.get("risk_factors", {}) or {}
     dominant_source = max(risk_factors.items(), key=lambda item: float(item[1] or 0))[0] if risk_factors else "none"
     analysis = {
@@ -52,12 +69,12 @@ def risk_status():
         "model_status": live.get("anomaly", {}).get("classification", "WARMING_UP"),
         "processing_time_seconds": 0, "risk_evidence": [live.get("anomaly", {}).get("explanation", "No anomaly explanation available.")],
     }
-    return jsonify(ok=True, risk={"score": live.get("risk_score"), "level": live.get("risk_level"), "factors": live.get("risk_factors")}, analysis=analysis, decision=decision, history=agents.get("risk_history", []))
+    return jsonify(ok=True, risk={"score": live.get("risk_score"), "level": live.get("risk_level"), "factors": live.get("risk_factors")}, analysis=analysis, decision=decision, robust_decision=robust, history=agents.get("risk_history", []))
 
 @bp.get("/agent-status")
 def agent_status():
-    live, agents, decision = _live_contract()
-    return jsonify(ok=True, agents=agents, decision=decision, updated_at=live.get("updated_at"))
+    live, agents, decision, robust = _robust_contract()
+    return jsonify(ok=True, agents=agents, decision=decision, robust_decision=robust, updated_at=live.get("updated_at"))
 
 @bp.errorhandler(Exception)
 def err(e):
@@ -65,7 +82,7 @@ def err(e):
 
 @bp.get("/state")
 def state():
-    live, agents, authoritative = _live_contract()
+    live, agents, authoritative, robust = _robust_contract()
     r = (q("SELECT * FROM risk_scores ORDER BY id DESC LIMIT 1") or [None])[0]
     gate = agents["gate"]
     r = dict(r or {}, score=live.get("risk_score"), level=live.get("risk_level"), anomaly=live.get("anomaly", {}).get("classification"), decision=live.get("risk_level"))
@@ -106,7 +123,7 @@ def state():
         risk_trend=q("SELECT ts,score FROM (SELECT * FROM risk_scores ORDER BY id DESC LIMIT 30) ORDER BY id"),
         backup_timeline=q("SELECT created_at ts,risk_score score FROM backups ORDER BY created_at LIMIT 30"),
         readiness_trend=q("SELECT ts,readiness score FROM (SELECT * FROM recovery_assessments ORDER BY id DESC LIMIT 30) ORDER BY id"),
-        risk_analysis=risk_analysis, live=live, agents=agents, decision=authoritative)
+        risk_analysis=risk_analysis, live=live, agents=agents, decision=authoritative, robust_decision=robust)
 
 @bp.post("/collect")
 def collect():
@@ -167,7 +184,15 @@ def assess(): g = readiness.decide(); return ok(g["decision"], gate=g)
 @bp.post("/recover")
 def recover():
     b = request.get_json(silent=True) or {}
-    r = recovery.execute(b.get("backup_id"), bool(b.get("approved"))); return jsonify(r)
+    _, _, _, robust = _robust_contract()
+    approved = bool(b.get("approved"))
+    if robust["decision"] in {"NO_SAFE_RECOVERY_POINT", "SYSTEM_NOT_RECOVERY_READY", "EMERGENCY_CONTAINMENT", "ISOLATE_COMPROMISED_AGENT"}:
+        return jsonify(ok=False, message=robust["reason"], robust_decision=robust), 403
+    if robust["authority"] == "HUMAN_APPROVAL_REQUIRED" and not approved:
+        return jsonify(ok=False, message="Human approval is required by the robust recovery authority policy", robust_decision=robust), 403
+    r = recovery.execute(b.get("backup_id") or robust.get("selected_recovery_point"), approved)
+    r["robust_decision"] = robust
+    return jsonify(r)
 
 @bp.post("/demo")
 def demo():

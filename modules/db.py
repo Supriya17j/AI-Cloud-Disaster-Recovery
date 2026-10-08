@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS agent_assessments(id INTEGER PRIMARY KEY, recovery_id
 CREATE TABLE IF NOT EXISTS agent_activity(id INTEGER PRIMARY KEY, timestamp TEXT NOT NULL, agent_name TEXT NOT NULL, status TEXT NOT NULL, action TEXT NOT NULL, confidence REAL, decision TEXT);
 CREATE TABLE IF NOT EXISTS telemetry(id INTEGER PRIMARY KEY, timestamp TEXT NOT NULL, source TEXT NOT NULL, cpu REAL, memory REAL, disk REAL, network_in REAL, network_out REAL, failed_logins REAL, suspicious REAL, status_check_failed REAL, system_health REAL, valid INTEGER NOT NULL DEFAULT 1);
 CREATE TABLE IF NOT EXISTS anomaly_history(id INTEGER PRIMARY KEY, timestamp TEXT NOT NULL, anomaly_detected INTEGER NOT NULL, anomaly_score REAL, classification TEXT NOT NULL, model TEXT NOT NULL, baseline_size INTEGER NOT NULL, confidence REAL, explanation TEXT);
+CREATE TABLE IF NOT EXISTS robust_decisions(id INTEGER PRIMARY KEY, decision_id TEXT UNIQUE NOT NULL, timestamp TEXT NOT NULL, decision TEXT NOT NULL, confidence REAL, reason TEXT, authority TEXT, selected_recovery_point TEXT, selected_recovery_agent TEXT, blocking_factors TEXT, agent_trust TEXT, readiness_score REAL);
 """
 
 def now(): return dt.datetime.now().isoformat(timespec="seconds")

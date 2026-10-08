@@ -12,6 +12,7 @@
   <button class="dashboard-tab" role="tab" aria-selected="false" aria-controls="tab-agents" data-dashboard-tab="tab-agents">Agent Network</button>
   <button class="dashboard-tab" role="tab" aria-selected="false" aria-controls="tab-decisions" data-dashboard-tab="tab-decisions">Decision Pipeline</button>
   <button class="dashboard-tab" role="tab" aria-selected="false" aria-controls="tab-recovery" data-dashboard-tab="tab-recovery">Recovery Points</button>
+  <button class="dashboard-tab" role="tab" aria-selected="false" aria-controls="tab-robust" data-dashboard-tab="tab-robust">Recovery Decision</button>
   <button class="dashboard-tab" role="tab" aria-selected="false" aria-controls="tab-history" data-dashboard-tab="tab-history">History</button>
 </nav>
 
@@ -35,6 +36,16 @@
 
 <section id="tab-recovery" class="dashboard-tab-panel" role="tabpanel" hidden>
   <section class="command-panel"><div class="section-heading"><span>RECOVERY POINT TRUST ASSESSMENT</span><h2>Never restore the latest point blindly</h2></div><div class="table-wrap"><table id="trust_points_table"></table></div></section>
+</section>
+
+<section id="tab-robust" class="dashboard-tab-panel" role="tabpanel" hidden>
+  <section class="command-panel"><div class="section-heading"><span>ROBUST RECOVERY DECISION</span><h2 id="robust_decision_label">Waiting for decision</h2></div>
+    <div class="robust-decision-grid">
+      <div><span>Authority</span><strong id="robust_authority">-</strong></div><div><span>Confidence</span><strong id="robust_confidence">-</strong></div><div><span>Readiness</span><strong id="robust_readiness">-</strong></div><div><span>Selected Agent</span><strong id="robust_agent">-</strong></div><div><span>Selected Point</span><strong id="robust_point">-</strong></div><div><span>Decision ID</span><strong id="robust_id">-</strong></div>
+    </div>
+    <p class="robust-reason" id="robust_reason">No robust decision generated.</p>
+    <div id="robust_agents" class="trust-list"></div>
+  </section>
 </section>
 
 <section id="tab-history" class="dashboard-tab-panel" role="tabpanel" hidden>
