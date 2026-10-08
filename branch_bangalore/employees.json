@@ -1,0 +1,142 @@
+[
+  {
+    "id": "75135cb3-6bfd-42b6-8efa-5c0f08810af3",
+    "name": "Nidra Mohan",
+    "email": "christophergala@example.net",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "a87c1e63-33fd-44e7-af62-7a176eefed30",
+    "name": "Netra Menon",
+    "email": "bainsinaya@example.com",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "6f1e397b-aacf-4e27-b40e-1c72d434db76",
+    "name": "Theodore Parmar",
+    "email": "wvirk@example.org",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "b259b4d9-b5d7-49fc-8140-210a42c49bc2",
+    "name": "Karan Manne",
+    "email": "alka91@example.org",
+    "department": "Finance",
+    "branch": "bangalore"
+  },
+  {
+    "id": "f075e3d4-8494-4f44-b37b-7f8ce2d6f2dc",
+    "name": "Devika Talwar",
+    "email": "bahuja@example.com",
+    "department": "HR",
+    "branch": "bangalore"
+  },
+  {
+    "id": "d60c951d-af30-4d66-a60a-34d943f00ca8",
+    "name": "Kavya Sekhon",
+    "email": "avni06@example.net",
+    "department": "Finance",
+    "branch": "bangalore"
+  },
+  {
+    "id": "a0031a36-819b-49b5-8780-1b6496b1a198",
+    "name": "Vedika Nagar",
+    "email": "cbhargava@example.com",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "a523fda1-b566-4c4d-b710-39179393456f",
+    "name": "Warjas Magar",
+    "email": "sidhuxiti@example.org",
+    "department": "HR",
+    "branch": "bangalore"
+  },
+  {
+    "id": "d1a61f9b-b760-45d0-8251-a246dd69f467",
+    "name": "Lipika Kapadia",
+    "email": "perikalpit@example.net",
+    "department": "Finance",
+    "branch": "bangalore"
+  },
+  {
+    "id": "bbc42b3a-3fa8-4ee5-ac9b-6c9899e19edd",
+    "name": "Fitan Kaur",
+    "email": "odika05@example.org",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "ad8aba1c-0dff-4962-b717-3dacffae00e2",
+    "name": "Sachi Bhakta",
+    "email": "fgoda@example.net",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "86ef79bd-fd88-41fc-a7b8-1ed909668dc6",
+    "name": "Gautami Bhakta",
+    "email": "rachitsule@example.com",
+    "department": "Operations",
+    "branch": "bangalore"
+  },
+  {
+    "id": "d46d8425-c7ce-495e-800f-fb946abb3d7e",
+    "name": "Tanay Butala",
+    "email": "ekumer@example.com",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "4e8562e6-a2df-4cc0-8beb-d151eb3d5d18",
+    "name": "Frederick Bava",
+    "email": "rachita74@example.net",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "278651c4-b0ea-4fe3-8acf-150d0378f4a0",
+    "name": "Anthony Vasa",
+    "email": "kmishra@example.net",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "eb3f8232-91b4-4446-9f1a-109ed0c9e29f",
+    "name": "Chasmum Dugal",
+    "email": "qkulkarni@example.net",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "2746f854-53ae-415f-92b2-f53fa037b408",
+    "name": "Manya Chada",
+    "email": "qkoshy@example.net",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "1f0a5608-a810-4bbb-ab99-35fdfe2372bd",
+    "name": "Christopher Dhaliwal",
+    "email": "vedika45@example.com",
+    "department": "Finance",
+    "branch": "bangalore"
+  },
+  {
+    "id": "33b7a5b4-627a-4113-a42b-b20ec18e24bf",
+    "name": "Yoshita Wali",
+    "email": "amruta06@example.org",
+    "department": "IT",
+    "branch": "bangalore"
+  },
+  {
+    "id": "75887ae6-e75a-4750-8a9e-2005ed80f488",
+    "name": "Bhavika Shere",
+    "email": "deshmukhtriveni@example.net",
+    "department": "IT",
+    "branch": "bangalore"
+  }
+]
