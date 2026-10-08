@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Risk Analysis{% endblock %}
+{% block eyebrow %}Monitoring to Risk Engine{% endblock %}
+{% block content %}
+<section class="kpi-grid">
+  <article class="kpi-card"><div class="kpi-label">CPU Usage</div><div class="kpi-value" data-metric="cpu">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">RAM Usage</div><div class="kpi-value" data-metric="ram">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">Disk Usage</div><div class="kpi-value" data-metric="disk">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">Failed Login Attempts</div><div class="kpi-value" data-metric="failed_logins">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">Suspicious Activity</div><div class="kpi-value" data-metric="suspicious">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">Environmental Event</div><div class="kpi-value" data-field="external_event">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">AI/Anomaly Score</div><div class="kpi-value" data-risk="anomaly">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">Overall Risk Score</div><div class="kpi-value" data-card="Current Risk Score">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">Risk Classification</div><div class="kpi-value" data-card="Risk Level">-</div></article>
+</section>
+
+<section class="control-grid">
+  <div class="panel">
+    <div class="panel-head"><span>Monitoring</span><h3>Collect Current Metrics</h3></div>
+    <div class="actions">
+      <button class="primary" onclick="act('collect')">Collect & Evaluate Risk</button>
+      <button class="warn" onclick="act('cyber/ransomware')">Ransomware Signal</button>
+      <button class="warn" onclick="act('cyber/malware')">Malware Signal</button>
+      <button class="warn" onclick="act('cyber/unauthorized_access')">Unauthorized Access</button>
+      <button class="warn" onclick="act('cyber/credential_abuse')">Credential Abuse</button>
+    </div>
+    <div class="inline-form">
+      <select id="ext">
+        <option>severe weather</option>
+        <option>power failure</option>
+        <option>datacenter issue</option>
+      </select>
+      <button onclick="act('external',{type:$('ext').value})">Log External Event</button>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><span>Explanation</span><h3>Risk Score Reasons</h3></div>
+    <ul class="reason-list" id="risk_reasons"><li>No risk analysis has been recorded yet.</li></ul>
+  </div>
+</section>
+
+<section class="chart-grid">
+  <div class="panel chart-panel"><h3>Risk Trend</h3><canvas id="c1"></canvas></div>
+  <div class="panel chart-panel"><h3>Backup Risk Timeline</h3><canvas id="c2"></canvas></div>
+  <div class="panel">
+    <div class="panel-head"><span>Signals</span><h3>Recent Events</h3></div>
+    <div class="table-wrap"><table id="t_e"></table></div>
+  </div>
+</section>
+{% endblock %}

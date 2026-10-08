@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}CYBER-AWARE RECOVERY CENTER{% endblock %}
+{% block eyebrow %}LIVE MONITORING + RECOVERY CONTROL CENTER{% endblock %}
+{% block content %}
+<section class="live-hero">
+  <div>
+    <p class="live-kicker">LIVE <span class="live-dot"></span> Monitoring Active</p>
+    <h1>Operational recovery intelligence.</h1>
+    <p class="live-updated" id="live_updated">Waiting for the first telemetry cycle.</p>
+  </div>
+  <div class="live-state-block"><span>RECOVERY STATE</span><strong id="recovery_state">MONITORING</strong></div>
+</section>
+
+<section class="live-kpi-grid" aria-label="Live recovery status">
+  <article class="live-kpi"><span>Risk Score</span><strong id="risk_score">-</strong><small id="risk_level">-</small></article>
+  <article class="live-kpi"><span>Security State</span><strong id="security_state">-</strong><small id="ai_decision">-</small></article>
+  <article class="live-kpi"><span>System Health</span><strong id="system_status">-</strong><small id="system_health">CPU - | RAM - | Disk -</small></article>
+  <article class="live-kpi"><span>Cyber Anomalies</span><strong id="anomaly_count">-</strong><small id="cyber_status">Isolation Forest: -</small></article>
+  <article class="live-kpi"><span>Backup Status</span><strong id="backup_status">-</strong><small id="backup_id">No backup recorded</small></article>
+</section>
+
+<section class="live-layout">
+  <div class="panel cloudwatch-panel">
+    <div class="panel-head"><span>CLOUDWATCH MONITORING</span><h3 id="cloudwatch_status">DISABLED</h3></div>
+    <div class="cloudwatch-meta">Latest metric: <strong id="cloudwatch_timestamp">No CloudWatch data</strong></div>
+    <div class="health-grid cloudwatch-grid">
+      <div><span>CPU</span><strong id="cloudwatch_cpu">-</strong></div>
+      <div><span>MEMORY</span><strong id="cloudwatch_memory">-</strong></div>
+      <div><span>DISK</span><strong id="cloudwatch_disk">-</strong></div>
+      <div><span>NETWORK</span><strong id="cloudwatch_network">-</strong></div>
+    </div>
+    <div class="cloudwatch-meta">Application health: <strong id="cloudwatch_health">-</strong> | Alarm: <strong id="cloudwatch_alarm">NOT_CONFIGURED</strong></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><span>LIVE SYSTEM HEALTH</span><h3>Telemetry</h3></div>
+    <div class="health-grid">
+      <div><span>CPU</span><strong id="cpu">-</strong></div>
+      <div><span>RAM</span><strong id="ram">-</strong></div>
+      <div><span>DISK</span><strong id="disk">-</strong></div>
+      <div><span>NETWORK</span><strong id="network">-</strong></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><span>CYBER THREAT MONITOR</span><h3>Detection</h3></div>
+    <div id="threat_summary" class="live-summary">Collecting Isolation Forest results...</div>
+    <div id="latest_event" class="event-callout">No security state change recorded.</div>
+  </div>
+</section>
+
+<section class="live-layout">
+  <div class="panel">
+    <div class="panel-head"><span>RECOVERY PIPELINE</span><h3>Current stage</h3></div>
+    <div id="pipeline" class="pipeline"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><span>EVENT LOG</span><h3>Persistent timeline</h3></div>
+    <ol id="event_timeline" class="event-timeline"><li>Waiting for recorded events.</li></ol>
+  </div>
+</section>
+
+<section class="control-grid">
+  <div class="panel">
+    <div class="panel-head"><span>Backup</span><h3>Recovery Point Creation</h3></div>
+    <div class="actions">
+      <button onclick="act('backup')">Create Backup</button>
+      <button class="success" onclick="act('assess')">Run Readiness Assessment</button>
+      <button class="success" onclick="act('recover',{approved:$('appr').checked})">Execute Recovery</button>
+    </div>
+    <label class="approval"><input type="checkbox" id="appr"> Human approval granted</label>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><span>Disaster Controls</span><h3>Assessment Inputs</h3></div>
+    <div class="actions">
+      <button class="danger" onclick="act('disaster/ransomware_attack')">Ransomware Attack</button>
+      <button class="danger" onclick="act('disaster/backup_tampering')">Backup Tampering</button>
+      <button class="danger" onclick="act('disaster/dependency_failure')">Dependency Failure</button>
+      <button class="danger" onclick="act('disaster/recovery_environment_failure')">Environment Failure</button>
+      <button onclick="act('reset-disasters')">Clear Disasters</button>
+    </div>
+  </div>
+  <div class="panel decision-panel">
+    <div class="panel-head"><span>Decision</span><h3>Recovery Decision Gate</h3></div>
+    <div id="gate" class="gate-empty">Run an assessment.</div>
+  </div>
+</section>
+
+<section class="kpi-grid">
+  <article class="kpi-card"><div class="kpi-label">Dependency Readiness</div><div class="kpi-value" data-field="dependency_status">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">Recovery Environment Status</div><div class="kpi-value" data-field="environment_status">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">RTO Target</div><div class="kpi-value" data-field="rto_target">300s</div></article>
+  <article class="kpi-card"><div class="kpi-label">RPO Target</div><div class="kpi-value" data-field="rpo_target">240 min</div></article>
+  <article class="kpi-card"><div class="kpi-label">Recovery Readiness Score</div><div class="kpi-value" data-card="Readiness Score">-</div></article>
+  <article class="kpi-card"><div class="kpi-label">Recovery Decision</div><div class="kpi-value" data-card="Recovery Decision">-</div></article>
+</section>
+
+<section class="decision-layout">
+  <div class="panel">
+    <div class="panel-head"><span>Available Recovery Points</span><h3>Backup Safety View</h3></div>
+    <div class="table-wrap"><table id="t_points"></table></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><span>Assessment</span><h3>Per Recovery Point</h3></div>
+    <div class="table-wrap"><table id="t_asm"></table></div>
+  </div>
+</section>
+<script src="{{ url_for('static', filename='js/recovery_live.js') }}"></script>
+{% endblock %}

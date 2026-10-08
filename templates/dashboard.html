@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}AI RECOVERY COMMAND CENTER{% endblock %}
+{% block eyebrow %}Trust-Aware Disaster Recovery{% endblock %}
+{% block content %}
+<section class="command-hero">
+  <div><p class="command-kicker">AI / AGENT-BASED TRUST-AWARE RECOVERY</p><h1>Assess safety before recovery.</h1><p id="command_updated">Waiting for live evidence.</p></div>
+  <div class="command-state"><span>SECURITY STATE</span><strong id="command_security_state">-</strong><small id="command_system_status">-</small></div>
+</section>
+
+<nav class="dashboard-tabs" role="tablist" aria-label="Recovery command center views">
+  <button class="dashboard-tab active" role="tab" aria-selected="true" aria-controls="tab-overview" data-dashboard-tab="tab-overview">Overview</button>
+  <button class="dashboard-tab" role="tab" aria-selected="false" aria-controls="tab-agents" data-dashboard-tab="tab-agents">Agent Network</button>
+  <button class="dashboard-tab" role="tab" aria-selected="false" aria-controls="tab-decisions" data-dashboard-tab="tab-decisions">Decision Pipeline</button>
+  <button class="dashboard-tab" role="tab" aria-selected="false" aria-controls="tab-recovery" data-dashboard-tab="tab-recovery">Recovery Points</button>
+  <button class="dashboard-tab" role="tab" aria-selected="false" aria-controls="tab-history" data-dashboard-tab="tab-history">History</button>
+</nav>
+
+<section id="tab-overview" class="dashboard-tab-panel active" role="tabpanel">
+  <div class="environment-grid">
+    <div class="command-panel environment-panel"><div class="section-heading"><span>LIVE RECOVERY ENVIRONMENT</span><h2>Evidence surface</h2></div><div class="environment-metrics">
+      <div><span>CloudWatch</span><strong id="dash_cloudwatch">-</strong></div><div><span>Weather risk</span><strong id="dash_weather">-</strong></div><div><span>EC2 health</span><strong id="dash_health">-</strong></div><div><span>CPU</span><strong id="dash_cpu">-</strong></div><div><span>Memory</span><strong id="dash_memory">-</strong></div><div><span>Disk</span><strong id="dash_disk">-</strong></div><div><span>Network</span><strong id="dash_network">-</strong></div><div><span>Anomalies</span><strong id="dash_anomalies">-</strong></div><div><span>Risk alarm</span><strong id="dash_alarm">-</strong></div><div><span>Latest point</span><strong id="dash_backup">-</strong></div>
+    </div></div>
+    <div class="safety-panel"><span class="section-label">RECOVERY SAFETY SCORE</span><strong id="dash_safety_score">-</strong><h2 id="dash_safety_label">Waiting for assessment</h2><p id="dash_formula">No score has been calculated.</p></div>
+  </div>
+  <section class="command-panel"><div class="section-heading"><span>LIVE HISTORY</span><h2>Telemetry and assessment trends</h2></div><div class="command-charts"><canvas id="dash_cpu_chart"></canvas><canvas id="dash_anomaly_chart"></canvas><canvas id="dash_safety_chart"></canvas></div></section>
+</section>
+
+<section id="tab-agents" class="dashboard-tab-panel" role="tabpanel" hidden>
+  <section class="command-panel agent-network"><div class="section-heading"><span>AI RECOVERY AGENT NETWORK</span><h2>Evidence-backed responsibilities</h2></div><div id="agent_cards" class="agent-grid"></div></section>
+</section>
+
+<section id="tab-decisions" class="dashboard-tab-panel" role="tabpanel" hidden>
+  <section class="command-panel"><div class="section-heading"><span>AI RECOVERY DECISION PIPELINE</span><h2>Why this recovery point is trusted</h2></div><div id="decision_pipeline" class="decision-pipeline"></div></section>
+</section>
+
+<section id="tab-recovery" class="dashboard-tab-panel" role="tabpanel" hidden>
+  <section class="command-panel"><div class="section-heading"><span>RECOVERY POINT TRUST ASSESSMENT</span><h2>Never restore the latest point blindly</h2></div><div class="table-wrap"><table id="trust_points_table"></table></div></section>
+</section>
+
+<section id="tab-history" class="dashboard-tab-panel" role="tabpanel" hidden>
+  <section class="command-lower-grid">
+    <div class="command-panel"><div class="section-heading"><span>AGENT ACTIVITY TIMELINE</span><h2>Recorded decisions</h2></div><ol id="agent_timeline" class="agent-timeline"></ol></div>
+    <div class="command-panel"><div class="section-heading"><span>PERSISTENT ASSESSMENTS</span><h2>DynamoDB history</h2></div><div class="table-wrap"><table id="assessment_history_table"></table></div></div>
+  </section>
+</section>
+<script src="{{ url_for('static', filename='js/command_center.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page_title }} | Cyber Recovery Readiness</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body data-page="{{ active_page }}">
+  <aside class="sidebar">
+    <div class="brand-block">
+      <p class="eyebrow">AI Recovery Operations</p>
+      <h1>Cyber Recovery Readiness</h1>
+    </div>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="{{ 'active' if active_page == 'dashboard' else '' }}" href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a class="{{ 'active' if active_page == 'risk' else '' }}" href="{{ url_for('risk_analysis') }}">Risk Analysis</a>
+      <a class="{{ 'active' if active_page == 'ai' else '' }}" href="{{ url_for('ai_detection') }}">AI Detection</a>
+      <a class="{{ 'active' if active_page == 'recovery' else '' }}" href="{{ url_for('recovery_page') }}">Backup & Recovery</a>
+      <a class="{{ 'active' if active_page == 'results' else '' }}" href="{{ url_for('recovery_results') }}">Recovery Results</a>
+    </nav>
+    <div class="system-pill">
+      <span class="pulse"></span>
+      Recovery console active | Demo mode: {{ 'ON' if demo_mode else 'OFF' }}
+    </div>
+  </aside>
+
+  <main class="app-main">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">{% block eyebrow %}Cloud Disaster Recovery{% endblock %}</p>
+        <h2>{% block title %}{{ page_title }}{% endblock %}</h2>
+      </div>
+      <div id="msg" class="notice compact" aria-live="polite"></div>
+    </header>
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

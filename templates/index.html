@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cyber-Aware Recovery Readiness</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">AI Recovery Operations Console</p>
+      <h1>Cyber-Aware Recovery Readiness</h1>
+    </div>
+    <div class="system-pill">
+      <span class="pulse"></span>
+      Recovery console active
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero-panel">
+      <div class="hero-copy">
+        <p class="eyebrow">Explainable decision layer</p>
+        <h2>Assess cyber safety, recovery points, dependencies, and RTO/RPO before restore.</h2>
+      </div>
+      <div class="neural-orbit" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </section>
+
+    <div id="msg" class="notice" aria-live="polite"></div>
+
+    <section class="kpi-grid" id="cards"></section>
+
+    <section class="control-grid">
+      <div class="panel">
+        <div class="panel-head">
+          <span>Stage 1</span>
+          <h3>Before Disaster: Risk-Based Backup</h3>
+        </div>
+        <div class="actions">
+          <button class="primary" onclick="act('collect')">Collect & Evaluate Risk</button>
+          <button onclick="act('backup')">Create Backup</button>
+          <button class="warn" onclick="act('cyber/ransomware')">Ransomware Signal</button>
+          <button class="warn" onclick="act('cyber/malware')">Malware Signal</button>
+          <button class="warn" onclick="act('cyber/unauthorized_access')">Unauthorized Access</button>
+          <button class="warn" onclick="act('cyber/credential_abuse')">Credential Abuse</button>
+        </div>
+        <div class="inline-form">
+          <select id="ext">
+            <option>severe weather</option>
+            <option>power failure</option>
+            <option>datacenter issue</option>
+          </select>
+          <button onclick="act('external',{type:$('ext').value})">Log External Event</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span>Stage 2</span>
+          <h3>Disaster Simulation</h3>
+        </div>
+        <div class="actions">
+          <button class="danger" onclick="act('disaster/ransomware_attack')">Ransomware Attack</button>
+          <button class="danger" onclick="act('disaster/backup_tampering')">Backup Tampering</button>
+          <button class="danger" onclick="act('disaster/dependency_failure')">Dependency Failure</button>
+          <button class="danger" onclick="act('disaster/system_failure')">System Failure</button>
+          <button class="danger" onclick="act('disaster/recovery_environment_failure')">Environment Failure</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span>Stage 3</span>
+          <h3>Recovery Decision Gate</h3>
+        </div>
+        <div class="actions">
+          <button class="success" onclick="act('assess')">Run Readiness Assessment</button>
+          <button class="success" onclick="act('recover',{approved:$('appr').checked})">Execute Recovery</button>
+          <button onclick="act('reset-disasters')">Clear Disasters</button>
+          <button onclick="act('demo')">Load Demo Data</button>
+        </div>
+        <label class="approval"><input type="checkbox" id="appr"> Human approval granted</label>
+      </div>
+    </section>
+
+    <section class="decision-layout">
+      <div class="panel decision-panel">
+        <div class="panel-head">
+          <span>Decision Gate</span>
+          <h3>Explanation and Evidence</h3>
+        </div>
+        <div id="gate" class="gate-empty">Run an assessment.</div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <span>Latest Assessment</span>
+          <h3>Per Recovery Point</h3>
+        </div>
+        <div class="table-wrap"><table id="t_asm"></table></div>
+      </div>
+    </section>
+
+    <section class="chart-grid">
+      <div class="panel chart-panel"><h3>Risk Trend</h3><canvas id="c1"></canvas></div>
+      <div class="panel chart-panel"><h3>Backup Risk Timeline</h3><canvas id="c2"></canvas></div>
+      <div class="panel chart-panel"><h3>Readiness Trend</h3><canvas id="c3"></canvas></div>
+    </section>
+
+    <section class="data-grid">
+      <div class="panel">
+        <div class="panel-head"><span>Metadata</span><h3>Backup History</h3></div>
+        <div class="table-wrap"><table id="t_b"></table></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><span>Execution</span><h3>Recovery History</h3></div>
+        <div class="table-wrap"><table id="t_r"></table></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><span>Signals</span><h3>Event Logs</h3></div>
+        <div class="table-wrap"><table id="t_e"></table></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

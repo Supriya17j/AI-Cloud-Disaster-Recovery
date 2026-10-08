@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}AI Cyber Recovery Center{% endblock %}
+{% block eyebrow %}Risk Analysis & Recovery Intelligence{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/risk_results.css') }}">
+<section class="risk-center">
+  <div class="risk-hero">
+    <div class="risk-hero-copy">
+      <p class="eyebrow">AI CYBER RECOVERY CENTER</p>
+      <h1>Continuously assess the risk across every recovery layer.</h1>
+      <p>Real-time weather, full-file cyber anomaly detection, and live system telemetry are fused into one evidence-based risk score. No fixed values or fabricated detections are displayed.</p>
+      <form id="risk-analysis-form" class="risk-upload">
+        <label for="cyber_csv">Cyber attack CSV</label>
+        <input id="cyber_csv" name="cyber_csv" type="file" accept=".csv,text/csv">
+        <button class="primary" type="submit">Analyze complete dataset</button>
+        <small data-risk="upload_status">Running analysis…</small>
+      </form>
+    </div>
+    <aside class="risk-overview-card" aria-label="Overall risk summary">
+      <div>
+        <div class="risk-overview-value"><strong data-risk="overall">0</strong><span>/ 100</span></div>
+        <h2>OVERALL RISK</h2>
+        <div class="risk-label" data-risk="severity">LOW</div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="risk-grid" aria-label="Risk intelligence cards">
+    <article class="risk-card">
+      <div class="risk-card-head">
+        <div><span class="risk-card-kicker">WEATHER INTELLIGENCE</span><h3>Environmental Risk</h3></div>
+        <div class="risk-score"><span data-risk="weather_score">0</span><small> / 100</small></div>
+      </div>
+      <div class="risk-metric-list" data-risk="weather_metrics"></div>
+      <div class="risk-status neutral">Weather source evaluated</div>
+    </article>
+
+    <article class="risk-card">
+      <div class="risk-card-head">
+        <div><span class="risk-card-kicker">CYBER THREAT INTELLIGENCE</span><h3>Isolation Forest Detection</h3></div>
+        <div class="risk-score"><span data-risk="cyber_score">0</span><small> / 100</small></div>
+      </div>
+      <div class="risk-metric-list">
+        <div><span>Records uploaded</span><strong data-risk="records_uploaded">0</strong></div>
+        <div><span>Records analyzed</span><strong data-risk="records">0</strong></div>
+        <div><span>Anomalies detected</span><strong data-risk="anomalies">0</strong></div>
+        <div><span>Anomaly rate</span><strong data-risk="anomaly_percentage">0.00%</strong></div>
+        <div><span>ML model</span><strong data-risk="model">Isolation Forest</strong></div>
+        <div><span>Model status</span><strong data-risk="model_status">NOT_RUN</strong></div>
+        <div><span>Processing time</span><strong data-risk="processing">0.00s</strong></div>
+      </div>
+      <div class="risk-status neutral">ML Detection: Isolation Forest</div>
+    </article>
+
+    <article class="risk-card">
+      <div class="risk-card-head">
+        <div><span class="risk-card-kicker">SYSTEM HEALTH</span><h3>Live System Telemetry</h3></div>
+        <div class="risk-score"><span data-risk="system_score">0</span><small> / 100</small></div>
+      </div>
+      <div class="risk-metric-list">
+        <div><span>CPU utilization</span><strong data-risk="cpu">0%</strong></div>
+        <div><span>RAM utilization</span><strong data-risk="ram">0%</strong></div>
+        <div><span>Disk utilization</span><strong data-risk="disk">0%</strong></div>
+        <div><span>Network activity</span><strong data-risk="network">0 bytes/s</strong></div>
+      </div>
+      <div class="risk-status neutral">psutil live collection</div>
+    </article>
+  </section>
+
+  <section class="risk-fusion-panel">
+    <p class="eyebrow">RISK FUSION</p>
+    <h2>Weighted decision intelligence</h2>
+    <div class="fusion-layout">
+      <div class="fusion-track" data-risk="fusion_track"></div>
+      <div class="fusion-summary" data-risk="fusion_summary"></div>
+    </div>
+  </section>
+
+  <section class="risk-evidence-panel">
+    <p class="eyebrow">RISK EVIDENCE</p>
+    <h2>Actual reasons behind the calculated score</h2>
+    <ul class="evidence-list" data-risk="evidence"></ul>
+    <p class="risk-empty">The analysis will populate evidence from the real weather, cyber, and system inputs.</p>
+  </section>
+</section>
+<script src="{{ url_for('static', filename='js/risk_results.js') }}"></script>
+{% endblock %}
